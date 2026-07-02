@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} | Gestion{% endblock %}
+
+{% block content %}
+<section class="section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Gestion</p>
+    <h1>{{ title }}</h1>
+    {% if hint %}<p>{{ hint }}</p>{% endif %}
+  </div>
+  <form class="tracking-box reveal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Guardar</button>
+  </form>
+</section>
+{% endblock %}

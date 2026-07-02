@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Admin general | Tolderas y Carpas el Ruso{% endblock %}
+
+{% block content %}
+<section class="section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Admin general</p>
+    <h1>Control exclusivo del administrador.</h1>
+    <p>Este apartado solo debe verlo tu cuenta admin general. Desde aqui administras usuarios y puedes descargar una exportacion JSON de la base.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'accounts:users' %}">Editar usuarios</a>
+      <a class="btn btn-secondary" href="{% url 'accounts:database_download' %}">Descargar BDD</a>
+      <a class="btn btn-secondary" href="{% url 'operations:dashboard' %}">Ir a Gestion</a>
+    </div>
+  </div>
+  <div class="bi-grid">
+    <article class="metric reveal"><span>Usuarios</span><strong>{{ users_count }}</strong><small>Admin, gestion y clientes</small></article>
+    <article class="metric reveal"><span>Clientes</span><strong>{{ customers_count }}</strong><small>Registrados por gestion</small></article>
+    <article class="metric reveal"><span>Pedidos</span><strong>{{ orders_count }}</strong><small>Historico operativo</small></article>
+    <article class="metric reveal"><span>Productos</span><strong>{{ products_count }}</strong><small>Catalogo</small></article>
+  </div>
+</section>
+{% endblock %}

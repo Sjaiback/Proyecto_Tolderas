@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Ingresar | Tolderas y Carpas el Ruso{% endblock %}
+
+{% block content %}
+<section class="section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Acceso</p>
+    <h1>Ingresar al sistema.</h1>
+    <p>Clientes pueden entrar con su DNI si fueron registrados por gestion. La gestion y administracion son privadas.</p>
+  </div>
+  <form class="tracking-box reveal" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Ingresar</button>
+  </form>
+</section>
+{% endblock %}

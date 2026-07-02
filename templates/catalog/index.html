@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Catalogo | Tolderas y Carpas el Ruso{% endblock %}
+
+{% block content %}
+<section class="section page-hero">
+  <div class="section-head reveal">
+    <p class="eyebrow">Catalogo inicial</p>
+    <h1>Productos consultables por WhatsApp.</h1>
+    <p>Los precios son de muestra para la demo. Despues los ajustamos con medidas, materiales y costos reales.</p>
+  </div>
+</section>
+
+<section class="section catalog-section">
+  <div class="product-grid" data-products>
+    {% for product in products %}
+      <article class="product-card reveal tilt-card">
+        <img src="{{ product.image_url }}" alt="{{ product.alt }}" loading="lazy" decoding="async">
+        <div class="product-body">
+          <p class="tag">{{ product.category }}</p>
+          <h2>{{ product.name }}</h2>
+          <p>{{ product.description }}</p>
+          <strong>{{ product.price_label }}</strong>
+          <a href="{{ product.whatsapp_url }}" target="_blank" rel="noopener">Consultar</a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

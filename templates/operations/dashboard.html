@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Panel operativo | Tolderas y Carpas el Ruso{% endblock %}
+
+{% block content %}
+<section class="section panel-section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Panel operativo</p>
+    <h1>Pedidos, inventario y tickets para el taller.</h1>
+    <p>Esta pantalla esta pensada mobile-first para que tu papa registre desde celular, y tambien funciona bien en computadora.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'operations:product_create' %}">Registrar producto</a>
+      <a class="btn btn-secondary" href="{% url 'operations:customer_create' %}">Registrar cliente</a>
+      <a class="btn btn-secondary" href="{% url 'operations:order_create' %}">Registrar pedido</a>
+    </div>
+  </div>
+  <div class="app-shell reveal">
+    <aside class="app-sidebar">
+      <strong>El Ruso Admin</strong>
+      <button class="active" type="button" data-tab="pedidos">Pedidos</button>
+      <button type="button" data-tab="registro">Registrar</button>
+      <button type="button" data-tab="inventario">Inventario</button>
+      <button type="button" data-tab="ticket">Ticket</button>
+    </aside>
+    <div class="app-main">
+      <section class="tab-panel is-active" data-panel="pedidos">
+        <div class="panel-toolbar">
+          <h2>Pedidos pendientes</h2>
+          <span>{{ active_count }} activos</span>
+        </div>
+        <div class="order-list">
+          {% for order in orders %}
+            <article><strong>{{ order.code }}</strong><span>{{ order.title }}</span><em>{{ order.status }}</em></article>
+          {% endfor %}
+        </div>
+      </section>
+      <section class="tab-panel" data-panel="registro">
+        <h2>Nuevo pedido</h2>
+        <div class="form-grid">
+          <label>Cliente<input value="Maria Quispe"></label>
+          <label>Telefono<input value="+51 999 888 777"></label>
+          <label>Trabajo<select><option>Confeccion</option><option>Reparacion</option><option>Venta</option></select></label>
+          <label>Total<input value="380"></label>
+          <label>Adelanto<input value="150"></label>
+          <label>Entrega estimada<input value="2026-07-05"></label>
+        </div>
+      </section>
+      <section class="tab-panel" data-panel="inventario">
+        <h2>Inventario rapido</h2>
+        <div class="inventory-list">
+          {% for item in inventory %}
+            <article><span>{{ item.name }}</span><meter min="0" max="100" value="{{ item.value }}"></meter><strong>{{ item.stock }}</strong></article>
+          {% endfor %}
+        </div>
+      </section>
+      <section class="tab-panel" data-panel="ticket">
+        <h2>Ticket de recepcion</h2>
+        <div class="ticket-preview">
+          <strong>TOLDERAS Y CARPAS EL RUSO</strong>
+          <span>Av. Circunvalacion s/n, Pichanaki</span>
+          <hr>
+          <p>Codigo: ER-2407</p>
+          <p>Cliente: Maria Quispe</p>
+          <p>Trabajo: Toldera reforzada</p>
+          <p>Total: S/ 380 · Adelanto: S/ 150</p>
+          <p>Saldo: S/ 230</p>
+          <small>Consulte su pedido en la web con este codigo.</small>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

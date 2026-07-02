@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Rastreo de pedido | Tolderas y Carpas el Ruso{% endblock %}
+
+{% block content %}
+<section class="section tracking-section page-offset">
+  <div class="tracking-copy reveal">
+    <p class="eyebrow">Seguimiento</p>
+    <h1>El cliente consulta su pedido con un codigo.</h1>
+    <p>Prueba con <strong>ER-2407</strong> para ver el flujo. En la app real este dato saldra de PostgreSQL.</p>
+  </div>
+  <form class="tracking-box reveal" method="get" data-track-form>
+    <label for="codigo">Codigo de rastreo</label>
+    <div class="track-row">
+      <input id="codigo" name="codigo" value="{{ code }}" autocomplete="off">
+      <button class="btn btn-primary" type="submit">Consultar</button>
+    </div>
+    <div class="track-result" data-track-result>
+      <p class="result-kicker">Pedido {{ order.code }}</p>
+      <h2>{{ order.title }}</h2>
+      <ol class="timeline">
+        {% for step in order.steps %}
+          <li class="{{ step.state }}">{{ step.label }}</li>
+        {% endfor %}
+      </ol>
+      <div class="balance">
+        <span>Total S/ {{ order.total }}</span>
+        <span>Adelanto S/ {{ order.advance }}</span>
+        <strong>Saldo S/ {{ order.balance }}</strong>
+      </div>
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Tolderas y Carpas el Ruso{% endblock %}</title>
+  <meta name="description" content="{% block description %}Tolderas, carpas, reparaciones y confecciones en Pichanaki, Chanchamayo, Junin.{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="{% static 'img/hero-taller.webp' %}" fetchpriority="high">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=20260702">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <div class="splash" data-splash aria-hidden="true">
+    <div class="splash-mark">ER</div>
+    <p>Tolderas y Carpas el Ruso</p>
+  </div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="{% url 'public:home' %}" aria-label="Ir al inicio">
+      <span class="brand-mark">ER</span>
+      <span>
+        <strong>El Ruso</strong>
+        <small>Tolderas y Carpas</small>
+      </span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" data-menu-toggle>
+      <span></span><span></span>
+    </button>
+    <nav class="site-nav" data-nav>
+      <a href="{% url 'catalog:index' %}">Catalogo</a>
+      <a href="{% url 'orders:tracking' %}">Rastreo</a>
+      {% if request.user.is_authenticated %}
+        {% if request.user.is_superuser or request.user.profile.role != "cliente" %}
+          <a href="{% url 'operations:dashboard' %}">Gestion</a>
+        {% endif %}
+        {% if request.user.username == "75371089" %}
+          <a href="{% url 'accounts:admin_dashboard' %}">Admin</a>
+          <a href="{% url 'analytics:dashboard' %}">Inteligencia</a>
+        {% endif %}
+      {% endif %}
+      <a class="nav-cta" href="https://wa.me/51960163257?text=Hola%20quiero%20consultar%20sobre%20tolderas%20y%20carpas" target="_blank" rel="noopener">WhatsApp</a>
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'accounts:logout' %}">Salir</a>
+      {% else %}
+        <a href="{% url 'accounts:login' %}">Ingresar</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main id="contenido">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>Tolderas y Carpas el Ruso · Django demo 2026</p>
+    <p>Fotos reales: <code>assets/photos/source</code></p>
+  </footer>
+
+  <script>
+    window.__BRAND__ = {
+      name: "Tolderas y Carpas el Ruso",
+      sampleOrder: { code: "ER-2407" }
+    };
+  </script>
+  <script defer src="{% static 'js/main.js' %}?v=20260702"></script>
+</body>
+</html>

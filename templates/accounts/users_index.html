@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Usuarios | Tolderas y Carpas el Ruso{% endblock %}
+
+{% block content %}
+<section class="section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Usuarios</p>
+    <h1>Editar accesos del sistema.</h1>
+    <a class="btn btn-primary" href="{% url 'accounts:user_create' %}">Nuevo usuario</a>
+  </div>
+  <div class="order-list reveal">
+    {% for item in users %}
+      <article>
+        <strong>{{ item.username }}</strong>
+        <span>{{ item.first_name }} {{ item.last_name }} · {{ item.email|default:"Sin correo" }}</span>
+        <em>{{ item.profile.get_role_display|default:"Sin perfil" }}</em>
+        <a class="btn btn-secondary" href="{% url 'accounts:user_edit' item.id %}">Editar</a>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Tolderas y Carpas el Ruso | Pichanaki{% endblock %}
+
+{% block content %}
+<section class="hero" id="inicio">
+  <div class="hero-media" aria-hidden="true">
+    <img src="{% static 'img/hero-taller.webp' %}" alt="" fetchpriority="high" loading="eager">
+    <div class="fabric-stage">
+      <div class="fabric-roll roll-a"></div>
+      <div class="fabric-roll roll-b"></div>
+      <div class="fabric-roll roll-c"></div>
+    </div>
+  </div>
+  <div class="hero-copy">
+    <p class="eyebrow">Pichanaki, Chanchamayo · Junin</p>
+    <h1>Tolderas, carpas y confecciones hechas para durar.</h1>
+    <p class="hero-sub">Venta, reparacion y trabajos a medida con seguimiento de pedido y atencion directa por WhatsApp.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'catalog:index' %}">Ver catalogo</a>
+      <a class="btn btn-secondary" href="{% url 'orders:tracking' %}">Consultar pedido</a>
+    </div>
+    <dl class="hero-facts" aria-label="Datos rapidos">
+      <div><dt>Horario</dt><dd>8:00 a 1:00 · 2:00 a 6:00</dd></div>
+      <div><dt>Ubicacion</dt><dd>Av. Circunvalacion s/n</dd></div>
+      <div><dt>Contacto</dt><dd>+51 960 163 257</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section intro-section" id="servicios">
+  <div class="section-head reveal">
+    <p class="eyebrow">Servicios</p>
+    <h2>Un taller para vender, reparar y confeccionar.</h2>
+  </div>
+  <div class="service-grid">
+    <article class="service-card reveal">
+      <span>01</span>
+      <h3>Tolderas a medida</h3>
+      <p>Diseños para locales, viviendas, ferias y negocios que necesitan sombra, proteccion y presencia.</p>
+    </article>
+    <article class="service-card reveal">
+      <span>02</span>
+      <h3>Carpas y estructuras</h3>
+      <p>Soluciones para eventos, comercio y trabajo diario, con materiales resistentes al uso intenso.</p>
+    </article>
+    <article class="service-card reveal">
+      <span>03</span>
+      <h3>Reparaciones</h3>
+      <p>Cambio de lona, costuras, refuerzos, ajustes y mantenimiento para alargar la vida del producto.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section contact-section" id="contacto">
+  <div>
+    <p class="eyebrow">Contacto</p>
+    <h2>Atencion directa en Pichanaki.</h2>
+    <p>Av. Circunvalacion s/n, Pichanaki, Chanchamayo, Junin. Horario: 8:00 a 1:00 y 2:00 a 6:00.</p>
+  </div>
+  <a class="btn btn-primary" href="https://wa.me/51960163257?text=Hola%20quiero%20cotizar%20un%20trabajo%20con%20Tolderas%20y%20Carpas%20el%20Ruso" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Inteligencia de negocio | Tolderas y Carpas el Ruso{% endblock %}
+
+{% block content %}
+<section class="section bi-section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Inteligencia de negocio</p>
+    <h1>Tu vista para tomar decisiones.</h1>
+    <p>Mas adelante estos indicadores saldran de pedidos, pagos, productos y movimientos de inventario.</p>
+  </div>
+  <div class="bi-grid">
+    <article class="metric reveal"><span>Ventas del mes</span><strong>S/ 8,420</strong><small>+18% vs mes anterior</small></article>
+    <article class="metric reveal"><span>Pedidos activos</span><strong>14</strong><small>6 en confeccion</small></article>
+    <article class="metric reveal"><span>Ticket promedio</span><strong>S/ 312</strong><small>Venta y reparacion</small></article>
+    <article class="chart-card reveal">
+      <h2>Productos mas solicitados</h2>
+      <div class="bar" style="--value: 88%"><span>Tolderas</span><i></i></div>
+      <div class="bar" style="--value: 64%"><span>Reparaciones</span><i></i></div>
+      <div class="bar" style="--value: 46%"><span>Carpas</span><i></i></div>
+      <div class="bar" style="--value: 32%"><span>Confecciones</span><i></i></div>
+    </article>
+    <article class="schema-card reveal">
+      <h2>Base de datos propuesta</h2>
+      <p>usuarios, clientes, productos, inventario, pedidos, pedido_items, pagos, movimientos_inventario y tickets.</p>
+      <a href="/static/database-schema.sql">Ver SQL inicial</a>
+    </article>
+  </div>
+</section>
+{% endblock %}

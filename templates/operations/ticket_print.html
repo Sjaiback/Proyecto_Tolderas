@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ticket {{ order.tracking_code }}</title>
+  <style>
+    body { font-family: Consolas, monospace; margin: 0; background: #f4f4f4; color: #111; }
+    .ticket { width: 80mm; min-height: 120mm; margin: 24px auto; padding: 14px; background: #fff; border: 1px dashed #777; }
+    h1 { font-size: 16px; text-align: center; margin: 0 0 8px; }
+    p { margin: 6px 0; font-size: 12px; }
+    .code { text-align: center; font-size: 22px; font-weight: 900; margin: 12px 0; }
+    hr { border: 0; border-top: 1px dashed #777; margin: 10px 0; }
+    button { display: block; margin: 16px auto; padding: 10px 14px; }
+    @media print {
+      body { background: #fff; }
+      button { display: none; }
+      .ticket { margin: 0; border: 0; width: auto; }
+    }
+  </style>
+</head>
+<body>
+  <button onclick="window.print()">Imprimir / Guardar PDF</button>
+  <section class="ticket">
+    <h1>TOLDERAS Y CARPAS EL RUSO</h1>
+    <p>Av. Circunvalacion s/n, Pichanaki</p>
+    <p>Telefono: +51 960 163 257</p>
+    <hr>
+    <p>Ticket: {{ ticket.number }}</p>
+    <p>Fecha: {{ order.received_at|date:"d/m/Y H:i" }}</p>
+    <div class="code">{{ order.tracking_code }}</div>
+    <p>Cliente: {{ order.customer.name }}</p>
+    <p>DNI: {{ order.customer.dni }}</p>
+    <p>Trabajo: {{ order.get_work_type_display }}</p>
+    <p>{{ order.description }}</p>
+    <hr>
+    <p>Total: S/ {{ order.total }}</p>
+    <p>Adelanto: S/ {{ order.advance }}</p>
+    <p>Saldo: S/ {{ order.balance }}</p>
+    <hr>
+    <p>Consulte el estado de su pedido con el codigo de rastreo.</p>
+  </section>
+</body>
+</html>
