@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes | Gestion{% endblock %}
+
+{% block content %}
+<section class="section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Gestion</p>
+    <h1>Clientes registrados.</h1>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'operations:customer_create' %}">Nuevo cliente</a>
+      <a class="btn btn-secondary" href="{% url 'operations:dashboard' %}">Volver</a>
+    </div>
+  </div>
+  <div class="order-list reveal">
+    {% for customer in customers %}
+      <article>
+        <strong>{{ customer.name }}</strong>
+        <span>DNI {{ customer.dni }} · {{ customer.phone }} · {{ customer.address|default:"Sin direccion" }}</span>
+        <div class="row-actions">
+          <a class="btn btn-secondary" href="{% url 'operations:customer_update' customer.id %}">Editar</a>
+          <a class="btn btn-secondary danger-link" href="{% url 'operations:customer_delete' customer.id %}">Eliminar</a>
+        </div>
+      </article>
+    {% empty %}
+      <article><strong>No hay clientes registrados.</strong></article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -9,6 +9,7 @@
     <h1>Control exclusivo del administrador.</h1>
     <p>Este apartado solo debe verlo tu cuenta admin general. Desde aqui administras usuarios y puedes descargar una exportacion JSON de la base.</p>
     <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'accounts:user_create' %}">Nuevo usuario</a>
       <a class="btn btn-primary" href="{% url 'accounts:users' %}">Editar usuarios</a>
       <a class="btn btn-secondary" href="{% url 'accounts:database_download' %}">Descargar BDD</a>
       <a class="btn btn-secondary" href="{% url 'operations:dashboard' %}">Ir a Gestion</a>

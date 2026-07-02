@@ -11,7 +11,7 @@ def catalog_index(request):
     if db_products.exists():
         products = []
         for product in db_products:
-            image = product.image.url if product.image else static("img/producto-1.webp")
+            image = product.main_image_url or static("img/producto-1.webp")
             message = quote(f"Hola quiero consultar por {product.name}")
             products.append(
                 {
@@ -22,6 +22,9 @@ def catalog_index(request):
                     "image_url": image,
                     "alt": product.name,
                     "whatsapp_url": f"https://wa.me/51960163257?text={message}",
+                    "discount_percent": product.discount_percent,
+                    "has_discount": product.has_discount,
+                    "previous_price": product.previous_price,
                 }
             )
         return render(request, "catalog/index.html", {"products": products})
@@ -80,6 +83,9 @@ def catalog_index(request):
         message = quote(f"Hola quiero consultar por {product['name']}")
         product["whatsapp_url"] = f"https://wa.me/51960163257?text={message}"
         product["image_url"] = static(product["image"])
+        product["discount_percent"] = 0
+        product["has_discount"] = False
+        product["previous_price"] = None
     return render(request, "catalog/index.html", {"products": products})
 
 # Create your views here.

@@ -22,7 +22,7 @@
 
   <header class="site-header" data-header>
     <a class="brand" href="{% url 'public:home' %}" aria-label="Ir al inicio">
-      <span class="brand-mark">ER</span>
+      <img class="brand-logo" src="{% static 'img/logo-ruso.png' %}" alt="Ruso Tolderas y Carpas">
       <span>
         <strong>El Ruso</strong>
         <small>Tolderas y Carpas</small>
@@ -53,6 +53,13 @@
   </header>
 
   <main id="contenido">
+    {% if messages %}
+      <ul class="messages section page-offset">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     {% block content %}{% endblock %}
   </main>
 

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Pedidos | Gestion{% endblock %}
+
+{% block content %}
+<section class="section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Gestion</p>
+    <h1>Pedidos registrados.</h1>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'operations:order_create' %}">Nuevo pedido</a>
+      <a class="btn btn-secondary" href="{% url 'operations:dashboard' %}">Volver</a>
+    </div>
+  </div>
+  <div class="order-list reveal">
+    {% for order in orders %}
+      <article>
+        <strong>{{ order.tracking_code }}</strong>
+        <span>{{ order.customer.name }} · {{ order.get_work_type_display }} · {{ order.get_status_display }} · S/. {{ order.total }}</span>
+        <div class="row-actions">
+          <a class="btn btn-secondary" href="{% url 'operations:ticket' order.id %}">Ticket</a>
+          <a class="btn btn-secondary" href="{% url 'operations:order_update' order.id %}">Editar</a>
+          <a class="btn btn-secondary danger-link" href="{% url 'operations:order_delete' order.id %}">Eliminar</a>
+        </div>
+      </article>
+    {% empty %}
+      <article><strong>No hay pedidos registrados.</strong></article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

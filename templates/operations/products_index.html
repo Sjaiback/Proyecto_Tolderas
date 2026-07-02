@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Productos | Gestion{% endblock %}
+
+{% block content %}
+<section class="section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Gestion</p>
+    <h1>Productos del catalogo.</h1>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'operations:product_create' %}">Nuevo producto</a>
+      <a class="btn btn-secondary" href="{% url 'operations:dashboard' %}">Volver</a>
+    </div>
+  </div>
+  <div class="order-list reveal">
+    {% for product in products %}
+      <article>
+        <strong>{{ product.name }}</strong>
+        <span>{{ product.category.name }} · {{ product.material|default:"Sin material" }} · {{ product.display_price }}</span>
+        {% if product.has_discount %}<em>-{{ product.discount_percent }}%</em>{% endif %}
+        <div class="row-actions">
+          <a class="btn btn-secondary" href="{% url 'operations:product_update' product.id %}">Editar</a>
+          <a class="btn btn-secondary danger-link" href="{% url 'operations:product_delete' product.id %}">Eliminar</a>
+        </div>
+      </article>
+    {% empty %}
+      <article><strong>No hay productos registrados.</strong></article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

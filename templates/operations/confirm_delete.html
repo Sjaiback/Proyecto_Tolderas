@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} | Gestion{% endblock %}
+
+{% block content %}
+<section class="section page-offset">
+  <div class="section-head reveal">
+    <p class="eyebrow">Confirmar</p>
+    <h1>{{ title }}</h1>
+    <p>Esta accion afecta directamente la base de datos.</p>
+  </div>
+  <form class="tracking-box reveal" method="post">
+    {% csrf_token %}
+    <p>Vas a eliminar: <strong>{{ object }}</strong></p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" type="submit">Eliminar</button>
+      <a class="btn btn-secondary" href="{% url 'operations:dashboard' %}">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

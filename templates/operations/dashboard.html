@@ -14,60 +14,27 @@
       <a class="btn btn-secondary" href="{% url 'operations:order_create' %}">Registrar pedido</a>
     </div>
   </div>
-  <div class="app-shell reveal">
-    <aside class="app-sidebar">
-      <strong>El Ruso Admin</strong>
-      <button class="active" type="button" data-tab="pedidos">Pedidos</button>
-      <button type="button" data-tab="registro">Registrar</button>
-      <button type="button" data-tab="inventario">Inventario</button>
-      <button type="button" data-tab="ticket">Ticket</button>
-    </aside>
-    <div class="app-main">
-      <section class="tab-panel is-active" data-panel="pedidos">
-        <div class="panel-toolbar">
-          <h2>Pedidos pendientes</h2>
-          <span>{{ active_count }} activos</span>
-        </div>
-        <div class="order-list">
-          {% for order in orders %}
-            <article><strong>{{ order.code }}</strong><span>{{ order.title }}</span><em>{{ order.status }}</em></article>
-          {% endfor %}
-        </div>
-      </section>
-      <section class="tab-panel" data-panel="registro">
-        <h2>Nuevo pedido</h2>
-        <div class="form-grid">
-          <label>Cliente<input value="Maria Quispe"></label>
-          <label>Telefono<input value="+51 999 888 777"></label>
-          <label>Trabajo<select><option>Confeccion</option><option>Reparacion</option><option>Venta</option></select></label>
-          <label>Total<input value="380"></label>
-          <label>Adelanto<input value="150"></label>
-          <label>Entrega estimada<input value="2026-07-05"></label>
-        </div>
-      </section>
-      <section class="tab-panel" data-panel="inventario">
-        <h2>Inventario rapido</h2>
-        <div class="inventory-list">
-          {% for item in inventory %}
-            <article><span>{{ item.name }}</span><meter min="0" max="100" value="{{ item.value }}"></meter><strong>{{ item.stock }}</strong></article>
-          {% endfor %}
-        </div>
-      </section>
-      <section class="tab-panel" data-panel="ticket">
-        <h2>Ticket de recepcion</h2>
-        <div class="ticket-preview">
-          <strong>TOLDERAS Y CARPAS EL RUSO</strong>
-          <span>Av. Circunvalacion s/n, Pichanaki</span>
-          <hr>
-          <p>Codigo: ER-2407</p>
-          <p>Cliente: Maria Quispe</p>
-          <p>Trabajo: Toldera reforzada</p>
-          <p>Total: S/ 380 · Adelanto: S/ 150</p>
-          <p>Saldo: S/ 230</p>
-          <small>Consulte su pedido en la web con este codigo.</small>
-        </div>
-      </section>
-    </div>
+  <div class="bi-grid">
+    <article class="metric reveal">
+      <span>Productos</span>
+      <strong>{{ products_count }}</strong>
+      <small><a href="{% url 'operations:products' %}">Editar catalogo</a></small>
+    </article>
+    <article class="metric reveal">
+      <span>Clientes</span>
+      <strong>{{ customers_count }}</strong>
+      <small><a href="{% url 'operations:customers' %}">Editar clientes</a></small>
+    </article>
+    <article class="metric reveal">
+      <span>Pedidos activos</span>
+      <strong>{{ active_count }}</strong>
+      <small><a href="{% url 'operations:orders' %}">Editar pedidos</a></small>
+    </article>
+    <article class="metric reveal">
+      <span>Inventario</span>
+      <strong>{{ inventory_count }}</strong>
+      <small>Movimientos en base</small>
+    </article>
   </div>
 </section>
 {% endblock %}

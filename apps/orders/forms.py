@@ -46,18 +46,29 @@ class OrderForm(forms.ModelForm):
         if user and user.is_authenticated:
             order.received_by = user
         if commit:
+            is_new = order.pk is None
             order.save()
             product = self.cleaned_data.get("product")
-            OrderItem.objects.create(
-                order=order,
-                product=product,
-                description=self.cleaned_data["item_description"],
-                quantity=self.cleaned_data["quantity"],
-                unit_price=self.cleaned_data["unit_price"],
-                subtotal=self.cleaned_data["quantity"] * self.cleaned_data["unit_price"],
-            )
+            if is_new:
+                OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    description=self.cleaned_data["item_description"],
+                    quantity=self.cleaned_data["quantity"],
+                    unit_price=self.cleaned_data["unit_price"],
+                    subtotal=self.cleaned_data["quantity"] * self.cleaned_data["unit_price"],
+                )
+            else:
+                item = order.items.first()
+                if item:
+                    item.product = product
+                    item.description = self.cleaned_data["item_description"]
+                    item.quantity = self.cleaned_data["quantity"]
+                    item.unit_price = self.cleaned_data["unit_price"]
+                    item.subtotal = self.cleaned_data["quantity"] * self.cleaned_data["unit_price"]
+                    item.save()
             amount = self.cleaned_data["payment_amount"]
-            if amount > 0:
+            if is_new and amount > 0:
                 Payment.objects.create(
                     order=order,
                     amount=amount,
