@@ -207,6 +207,76 @@
     syncMode();
   }
 
+  function initLoginScene() {
+    const scene = $("[data-login-scene]");
+    const form = $("[data-login-form]");
+    if (!scene || !form) return;
+    const characters = $$("[data-login-character]", scene);
+    const eyes = $$("[data-login-eye]", scene);
+    const inputs = $$("input", form);
+    const password = $("#id_password", form);
+    const toggle = $("[data-password-toggle]", form);
+    let mouseX = innerWidth / 2;
+    let mouseY = innerHeight / 2;
+
+    function syncEyes() {
+      eyes.forEach((eye) => {
+        const rect = eye.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = mouseX - cx;
+        const dy = mouseY - cy;
+        const angle = Math.atan2(dy, dx);
+        const distance = Math.min(6, Math.hypot(dx, dy) / 30);
+        eye.style.setProperty("--eye-x", (Math.cos(angle) * distance).toFixed(2) + "px");
+        eye.style.setProperty("--eye-y", (Math.sin(angle) * distance).toFixed(2) + "px");
+      });
+      characters.forEach((character) => {
+        const rect = character.getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+        const lean = Math.max(-5, Math.min(5, (center - mouseX) / 90));
+        character.style.setProperty("--lean", lean.toFixed(2) + "deg");
+      });
+    }
+
+    window.addEventListener("mousemove", (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      syncEyes();
+    }, { passive: true });
+
+    inputs.forEach((input) => {
+      input.addEventListener("focus", () => characters.forEach((item) => item.classList.add("is-typing")));
+      input.addEventListener("blur", () => characters.forEach((item) => item.classList.remove("is-typing")));
+    });
+
+    if (password) {
+      password.addEventListener("input", () => {
+        const active = password.value.length > 0;
+        characters.forEach((item) => item.classList.toggle("is-peeking", active));
+      });
+    }
+
+    if (toggle && password) {
+      toggle.addEventListener("click", () => {
+        const visible = password.type === "text";
+        password.type = visible ? "password" : "text";
+        toggle.textContent = visible ? "Ver" : "Ocultar";
+        toggle.setAttribute("aria-label", visible ? "Mostrar contrasena" : "Ocultar contrasena");
+        password.focus();
+      });
+    }
+
+    setInterval(() => {
+      const target = characters[Math.floor(Math.random() * characters.length)];
+      if (!target) return;
+      target.classList.add("is-blinking");
+      setTimeout(() => target.classList.remove("is-blinking"), 150);
+    }, 3200);
+
+    syncEyes();
+  }
+
   function boot() {
     safe(initSplash, "initSplash");
     safe(initHeader, "initHeader");
@@ -217,6 +287,7 @@
     safe(initTabs, "initTabs");
     safe(initHeroMotion, "initHeroMotion");
     safe(initStarGallery, "initStarGallery");
+    safe(initLoginScene, "initLoginScene");
     document.documentElement.classList.add("is-ready");
   }
 

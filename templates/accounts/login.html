@@ -1,18 +1,82 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Ingresar | Tolderas y Carpas el Ruso{% endblock %}
 
 {% block content %}
-<section class="section page-offset">
-  <div class="section-head reveal">
-    <p class="eyebrow">Acceso</p>
-    <h1>Ingresar al sistema.</h1>
-    <p>Clientes pueden entrar con su DNI si fueron registrados por gestion. La gestion y administracion son privadas.</p>
+<section class="login-page page-offset">
+  <div class="login-visual reveal" aria-hidden="true">
+    <div class="login-visual-brand">
+      <img src="{% static 'img/logo-ruso-transparente.png' %}?v=20260707" alt="">
+    </div>
+    <div class="login-scene" data-login-scene>
+      <div class="login-character tarp-red" data-login-character>
+        <span class="tent-ridge"></span>
+        <span class="tent-valance"></span>
+        <span class="eye left" data-login-eye></span>
+        <span class="eye right" data-login-eye></span>
+      </div>
+      <div class="login-character canopy-gold" data-login-character>
+        <span class="canopy-top"></span>
+        <span class="eye left" data-login-eye></span>
+        <span class="eye right" data-login-eye></span>
+        <span class="mouth"></span>
+      </div>
+      <div class="login-character truck-green" data-login-character>
+        <span class="truck-cab"></span>
+        <span class="truck-wheel wheel-a"></span>
+        <span class="truck-wheel wheel-b"></span>
+        <span class="eye left" data-login-eye></span>
+        <span class="eye right" data-login-eye></span>
+      </div>
+      <div class="login-character roll-silver" data-login-character>
+        <span class="roll-core"></span>
+        <span class="eye left" data-login-eye></span>
+        <span class="eye right" data-login-eye></span>
+      </div>
+    </div>
+    <div class="login-visual-copy">
+      <p class="eyebrow">Acceso privado</p>
+      <h1>Gestiona pedidos, clientes y catalogo.</h1>
+      <p>Las tolderas vigilan el taller mientras ingresas. Si escribes la clave, miran con mas curiosidad.</p>
+    </div>
   </div>
-  <form class="tracking-box reveal" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-primary" type="submit">Ingresar</button>
-  </form>
+
+  <div class="login-panel reveal">
+    <div class="login-mobile-logo">
+      <img src="{% static 'img/logo-ruso-transparente.png' %}?v=20260707" alt="Ruso Tolderas y Carpas">
+    </div>
+    <div class="login-heading">
+      <p class="eyebrow">Ingresar</p>
+      <h2>Bienvenido de vuelta.</h2>
+      <p>Clientes registrados entran con su DNI. Gestion y administracion son privadas.</p>
+    </div>
+
+    <form class="login-form" method="post" data-login-form>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="form-alert">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <label for="{{ form.username.id_for_label }}">
+        <span>Usuario</span>
+        {{ form.username }}
+        {% if form.username.errors %}<small>{{ form.username.errors|striptags }}</small>{% endif %}
+      </label>
+
+      <label for="{{ form.password.id_for_label }}">
+        <span>Contrasena</span>
+        <span class="password-field">
+          {{ form.password }}
+          <button type="button" aria-label="Mostrar contrasena" data-password-toggle>Ver</button>
+        </span>
+        {% if form.password.errors %}<small>{{ form.password.errors|striptags }}</small>{% endif %}
+      </label>
+
+      <button class="btn btn-primary login-submit" type="submit">Ingresar</button>
+    </form>
+  </div>
 </section>
 {% endblock %}

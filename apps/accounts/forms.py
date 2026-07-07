@@ -6,8 +6,14 @@ from .models import UserProfile
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label="Usuario")
-    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    username = forms.CharField(
+        label="Usuario",
+        widget=forms.TextInput(attrs={"placeholder": "DNI o usuario", "autocomplete": "username"}),
+    )
+    password = forms.CharField(
+        label="Contraseña",
+        widget=forms.PasswordInput(attrs={"placeholder": "Tu contrasena", "autocomplete": "current-password"}),
+    )
 
 
 class ManagedUserForm(UserCreationForm):
