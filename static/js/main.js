@@ -138,6 +138,75 @@
     }, { passive: true });
   }
 
+  function initStarGallery() {
+    const gallery = $("[data-star-gallery]");
+    if (!gallery) return;
+    const stage = $(".gallery-stage", gallery);
+    const cards = $$("[data-gallery-card]", gallery);
+    const prev = $("[data-gallery-prev]", gallery);
+    const next = $("[data-gallery-next]", gallery);
+    if (!stage || cards.length < 2) return;
+
+    const mobile = matchMedia("(max-width: 719px)");
+    let rotation = 0;
+    let raf = 0;
+    let lastTick = performance.now();
+    const angle = 360 / cards.length;
+
+    function radius() {
+      return Math.min(560, Math.max(320, gallery.clientWidth * .42));
+    }
+
+    function render() {
+      if (mobile.matches) return;
+      stage.style.transform = "rotateY(" + rotation.toFixed(2) + "deg)";
+      cards.forEach((card, index) => {
+        const itemAngle = index * angle;
+        const relative = (itemAngle + rotation + 360) % 360;
+        const normalized = Math.abs(relative > 180 ? 360 - relative : relative);
+        const opacity = Math.max(.28, 1 - normalized / 170);
+        card.style.transform = "translate(-50%, -50%) rotateY(" + itemAngle + "deg) translateZ(" + radius() + "px)";
+        card.style.opacity = opacity.toFixed(2);
+        card.style.filter = normalized > 95 ? "saturate(.72) brightness(.72)" : "";
+      });
+    }
+
+    function tick(now) {
+      const delta = now - lastTick;
+      lastTick = now;
+      rotation += delta * .006;
+      render();
+      raf = requestAnimationFrame(tick);
+    }
+
+    function step(direction) {
+      rotation += angle * direction;
+      render();
+    }
+
+    function syncMode() {
+      cancelAnimationFrame(raf);
+      if (mobile.matches) {
+        stage.style.transform = "";
+        cards.forEach((card) => {
+          card.style.transform = "";
+          card.style.opacity = "";
+          card.style.filter = "";
+        });
+        return;
+      }
+      lastTick = performance.now();
+      render();
+      raf = requestAnimationFrame(tick);
+    }
+
+    if (prev) prev.addEventListener("click", () => step(1));
+    if (next) next.addEventListener("click", () => step(-1));
+    mobile.addEventListener("change", syncMode);
+    window.addEventListener("resize", render, { passive: true });
+    syncMode();
+  }
+
   function boot() {
     safe(initSplash, "initSplash");
     safe(initHeader, "initHeader");
@@ -147,6 +216,7 @@
     safe(initTracking, "initTracking");
     safe(initTabs, "initTabs");
     safe(initHeroMotion, "initHeroMotion");
+    safe(initStarGallery, "initStarGallery");
     document.documentElement.classList.add("is-ready");
   }
 

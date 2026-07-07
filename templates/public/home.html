@@ -54,6 +54,31 @@
   </div>
 </section>
 
+<section class="section star-products-section" id="productos-estrella">
+  <div class="section-head reveal">
+    <p class="eyebrow">Productos estrella</p>
+    <h2>Los trabajos que mas buscan los clientes.</h2>
+    <p>Una vitrina circular con productos fuertes del taller: carpas, toldos comerciales y lonas para transporte.</p>
+  </div>
+  <div class="star-gallery" data-star-gallery aria-label="Galeria 3D de productos estrella">
+    <button class="gallery-control gallery-prev" type="button" aria-label="Producto anterior" data-gallery-prev>&lsaquo;</button>
+    <div class="gallery-stage">
+      {% for product in featured_products %}
+        <article class="gallery-card" data-gallery-card>
+          <img src="{{ product.image_url }}" alt="{{ product.alt }}" title="{{ product.name }}" loading="lazy" decoding="async">
+          <div class="gallery-card-body">
+            <span>{{ product.category }}</span>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.price }}</p>
+            <a href="https://wa.me/51960163257?text=Hola%20quiero%20consultar%20por%20{{ product.name|urlencode }}" target="_blank" rel="noopener">Consultar</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    <button class="gallery-control gallery-next" type="button" aria-label="Producto siguiente" data-gallery-next>&rsaquo;</button>
+  </div>
+</section>
+
 <section class="section works-section" id="trabajos">
   <div class="section-head reveal">
     <p class="eyebrow">Trabajos realizados</p>
