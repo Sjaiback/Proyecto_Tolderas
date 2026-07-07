@@ -11,14 +11,14 @@ def catalog_index(request):
     if db_products.exists():
         products = []
         for product in db_products:
-            image = product.main_image_url or static("img/producto-1.webp")
+            image = product.main_image_url or static("img/trabajos/carpa-multicolor-local-comercial.webp")
             message = quote(f"Hola quiero consultar por {product.name}")
             products.append(
                 {
                     "name": product.name,
                     "category": product.category.name,
                     "description": product.description,
-                    "price_label": product.price_label or f"S/ {product.base_price}",
+                    "price_label": product.price_label or product.display_price,
                     "image_url": image,
                     "alt": product.name,
                     "whatsapp_url": f"https://wa.me/51960163257?text={message}",
@@ -31,52 +31,52 @@ def catalog_index(request):
 
     products = [
         {
-            "name": "Toldera reforzada",
+            "name": "Carpa multicolor para negocio",
             "category": "Venta",
-            "description": "Lona resistente para frente de negocio o vivienda.",
-            "price_label": "S/ 280 desde",
-            "image": "img/producto-1.webp",
-            "alt": "Toldera azul a medida",
+            "description": "Carpa llamativa para locales, pollerias, ferias y puntos de venta.",
+            "price_label": "Cotizar segun medida",
+            "image": "img/trabajos/carpa-multicolor-local-comercial.webp",
+            "alt": "Carpa multicolor instalada en local comercial",
         },
         {
-            "name": "Carpa comercial",
+            "name": "Toldo comercial para fachada",
             "category": "Venta",
-            "description": "Carpa para ferias, ventas y uso diario.",
-            "price_label": "S/ 450 desde",
-            "image": "img/producto-2.webp",
-            "alt": "Carpa para comercio",
+            "description": "Toldo frontal para proteger y resaltar la entrada de un negocio.",
+            "price_label": "Cotizar segun fachada",
+            "image": "img/trabajos/toldo-cevicheria-el-tio-frontal.webp",
+            "alt": "Toldo comercial para cevicheria instalado en fachada",
         },
         {
-            "name": "Reparacion de lona",
-            "category": "Servicio",
-            "description": "Costuras, parches, refuerzos y cambio de piezas.",
-            "price_label": "S/ 60 desde",
-            "image": "img/producto-3.webp",
-            "alt": "Reparacion de lona",
+            "name": "Lona para camion de carga",
+            "category": "Transporte",
+            "description": "Lonas resistentes para cubrir carga, proteger mercaderia y soportar uso diario.",
+            "price_label": "Cotizar segun camion",
+            "image": "img/trabajos/lona-azul-camion-grande.webp",
+            "alt": "Lona azul confeccionada para camion de carga",
         },
         {
-            "name": "Confeccion especial",
+            "name": "Toldo para pescaderia o restaurante",
             "category": "A medida",
-            "description": "Trabajo personalizado segun medida, uso y material.",
-            "price_label": "S/ 120 desde",
-            "image": "img/producto-4.webp",
-            "alt": "Confeccion personalizada",
+            "description": "Toldos personalizados con colores y forma adaptada al tipo de negocio.",
+            "price_label": "Cotizar personalizado",
+            "image": "img/trabajos/toldo-azul-pescados-mariscos.webp",
+            "alt": "Toldo azul instalado en local de pescados y mariscos",
         },
         {
-            "name": "Instalacion en campo",
+            "name": "Carpa roja para exteriores",
             "category": "Instalacion",
-            "description": "Montaje, tensionado y revision de estructura.",
-            "price_label": "S/ 90 desde",
-            "image": "img/producto-5.webp",
-            "alt": "Instalacion de toldera",
+            "description": "Carpa para sombra y proteccion en espacios abiertos o zonas de trabajo.",
+            "price_label": "Cotizar instalacion",
+            "image": "img/trabajos/carpa-roja-instalacion-campo.webp",
+            "alt": "Carpa roja instalada en zona exterior",
         },
         {
-            "name": "Trabajo personalizado",
+            "name": "Lona verde para transporte",
             "category": "Proyecto",
-            "description": "Soluciones para medidas especiales, negocios y eventos.",
+            "description": "Confeccion de lona a medida para unidades de transporte y reparto.",
             "price_label": "Cotizable",
-            "image": "img/producto-6.webp",
-            "alt": "Trabajo personalizado de carpa",
+            "image": "img/trabajos/lona-verde-camion-transporte.webp",
+            "alt": "Lona verde para camion de transporte",
         },
     ]
     for product in products:
@@ -87,5 +87,3 @@ def catalog_index(request):
         product["has_discount"] = False
         product["previous_price"] = None
     return render(request, "catalog/index.html", {"products": products})
-
-# Create your views here.

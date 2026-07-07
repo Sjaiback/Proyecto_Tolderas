@@ -54,6 +54,22 @@
   </div>
 </section>
 
+<section class="section works-section" id="trabajos">
+  <div class="section-head reveal">
+    <p class="eyebrow">Trabajos realizados</p>
+    <h2>Instalaciones reales para negocios, transporte y comercio.</h2>
+    <p>Fotos reales optimizadas para web: carpas, toldos comerciales y lonas para camiones hechas por el taller.</p>
+  </div>
+  <div class="works-grid">
+    {% for job in featured_jobs %}
+      <article class="work-card reveal">
+        <img src="{{ job.image_url }}" alt="{{ job.alt }}" title="{{ job.title }}" loading="lazy" decoding="async">
+        <h3>{{ job.title }}</h3>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
 <section class="section contact-section" id="contacto">
   <div>
     <p class="eyebrow">Contacto</p>

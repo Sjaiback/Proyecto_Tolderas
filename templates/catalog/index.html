@@ -19,7 +19,7 @@
         {% if product.has_discount %}
           <span class="discount-badge">-{{ product.discount_percent }}%</span>
         {% endif %}
-        <img src="{{ product.image_url }}" alt="{{ product.alt }}" loading="lazy" decoding="async">
+        <img src="{{ product.image_url }}" alt="{{ product.alt }}" title="{{ product.name }}" loading="lazy" decoding="async">
         <div class="product-body">
           <p class="tag">{{ product.category }}</p>
           <h2>{{ product.name }}</h2>
