@@ -79,8 +79,9 @@ h1, h2, h3 { line-height: 1.02; text-wrap: balance; letter-spacing: 0; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: .75rem 1rem;
+  min-height: 82px;
+  gap: 1.25rem;
+  padding: .95rem 1.15rem;
   border-bottom: 1px solid transparent;
   transition: background .3s var(--ease-out), border-color .3s var(--ease-out);
 }
@@ -90,10 +91,10 @@ h1, h2, h3 { line-height: 1.02; text-wrap: balance; letter-spacing: 0; }
   border-color: var(--line);
   backdrop-filter: blur(16px);
 }
-.brand { display: inline-flex; align-items: center; gap: .65rem; min-width: 0; }
+.brand { display: inline-flex; align-items: center; min-width: 0; }
 .brand-logo {
-  width: 82px;
-  height: 40px;
+  width: clamp(118px, 12vw, 162px);
+  height: 54px;
   object-fit: contain;
   filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .34));
 }
@@ -135,7 +136,7 @@ h1, h2, h3 { line-height: 1.02; text-wrap: balance; letter-spacing: 0; }
 .site-header.is-open .menu-toggle span:last-child { transform: rotate(-45deg); }
 .site-nav {
   position: fixed;
-  top: 68px;
+  top: 86px;
   left: 1rem;
   right: 1rem;
   display: grid;
