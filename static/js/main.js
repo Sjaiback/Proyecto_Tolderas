@@ -258,13 +258,27 @@
     }
 
     if (toggle && password) {
-      toggle.addEventListener("click", () => {
-        const visible = password.type === "text";
-        password.type = visible ? "password" : "text";
-        toggle.textContent = visible ? "Ver" : "Ocultar";
-        toggle.setAttribute("aria-label", visible ? "Mostrar contrasena" : "Ocultar contrasena");
-        password.focus();
+      const showPassword = (event) => {
+        if (event) event.preventDefault();
+        password.type = "text";
+        toggle.classList.add("is-pressed");
+        toggle.setAttribute("aria-pressed", "true");
+      };
+      const hidePassword = () => {
+        password.type = "password";
+        toggle.classList.remove("is-pressed");
+        toggle.setAttribute("aria-pressed", "false");
+      };
+      toggle.setAttribute("aria-pressed", "false");
+      toggle.addEventListener("pointerdown", showPassword);
+      toggle.addEventListener("pointerup", hidePassword);
+      toggle.addEventListener("pointercancel", hidePassword);
+      toggle.addEventListener("pointerleave", hidePassword);
+      toggle.addEventListener("blur", hidePassword);
+      toggle.addEventListener("keydown", (event) => {
+        if (event.key === " " || event.key === "Enter") showPassword(event);
       });
+      toggle.addEventListener("keyup", hidePassword);
     }
 
     setInterval(() => {

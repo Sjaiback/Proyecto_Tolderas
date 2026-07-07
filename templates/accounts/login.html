@@ -63,7 +63,7 @@
         <span>Contrasena</span>
         <span class="password-field">
           {{ form.password }}
-          <button type="button" aria-label="Mostrar contrasena" data-password-toggle>Ver</button>
+          <button class="password-peek" type="button" aria-label="Mantener presionado para ver contrasena" data-password-toggle></button>
         </span>
         {% if form.password.errors %}<small>{{ form.password.errors|striptags }}</small>{% endif %}
       </label>

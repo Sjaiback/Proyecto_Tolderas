@@ -818,13 +818,39 @@ h1, h2, h3 { line-height: 1.02; text-wrap: balance; letter-spacing: 0; }
   position: absolute;
   right: .4rem;
   top: 50%;
-  min-width: 54px;
+  width: 42px;
   min-height: 38px;
   border-radius: 6px;
   translate: 0 -50%;
   background: rgba(0, 143, 98, .12);
   color: #006442;
   font-weight: 900;
+}
+.password-peek::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-radius: 999px / 720px;
+  translate: -50% -50%;
+}
+.password-peek::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: currentColor;
+  translate: -50% -50%;
+}
+.password-peek.is-pressed {
+  background: rgba(216, 179, 77, .22);
+  color: var(--wine);
 }
 .form-alert {
   padding: .85rem 1rem;
